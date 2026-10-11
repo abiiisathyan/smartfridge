@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartFridge</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- =========================
+         OPENING SCREEN
+    ========================== -->
+
+    <section id="welcomeScreen" class="welcome-screen">
+
+        <div class="welcome-content">
+
+            <h1>SMARTFRIDGE</h1>
+
+            <p>
+                Smart food management using Priority Queue
+            </p>
+
+            <div class="fridge-container">
+
+                <div class="fridge">
+
+                    <div class="fridge-top">
+                        <div class="freezer-handle"></div>
+                    </div>
+
+                    <div class="fridge-door">
+
+                        <div class="door-handle"></div>
+
+                        <div class="door-label">
+                            SMART<br>FRIDGE
+                        </div>
+
+                    </div>
+
+                    <div class="fridge-bottom"></div>
+
+                </div>
+
+            </div>
+
+            <button id="openFridgeBtn" class="open-btn">
+                OPEN FRIDGE
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         MAIN DASHBOARD
+    ========================== -->
+
+    <main id="mainApp" class="main-app hidden">
+
+        <header class="top-header">
+
+            <div>
+                <h1>🥶 SmartFridge</h1>
+                <p>Manage your food before it expires</p>
+            </div>
+
+            <div class="header-buttons">
+
+                <button id="priorityBtn">
+                    ⚡ Priority Queue
+                </button>
+
+                <button id="addFoodBtn">
+                    + Add Food
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             DASHBOARD CARDS
+        ========================== -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+
+                <span class="stat-icon">🍱</span>
+
+                <div>
+                    <h3>Total Items</h3>
+                    <strong id="totalItems">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card warning">
+
+                <span class="stat-icon">⏰</span>
+
+                <div>
+                    <h3>Expiring Soon</h3>
+                    <strong id="expiringSoon">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card danger">
+
+                <span class="stat-icon">⚠️</span>
+
+                <div>
+                    <h3>Expired</h3>
+                    <strong id="expiredItems">0</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FRIDGE AREA
+        ========================== -->
+
+        <section class="fridge-section">
+
+            <div class="section-title">
+
+                <div>
+                    <h2>My Refrigerator</h2>
+                    <p>Click a food item to view its details</p>
+                </div>
+
+                <button id="closeFridgeBtn">
+                    🚪 Close Fridge
+                </button>
+
+            </div>
+
+
+            <!-- Dairy -->
+
+            <div class="food-section">
+
+                <h3>🥛 Dairy & Drinks</h3>
+
+                <div
+                    id="dairyContainer"
+                    class="food-grid">
+                </div>
+
+            </div>
+
+
+            <!-- Fruits -->
+
+            <div class="food-section">
+
+                <h3>🥦 Fruits & Vegetables</h3>
+
+                <div
+                    id="fruitsContainer"
+                    class="food-grid">
+                </div>
+
+            </div>
+
+
+            <!-- Other -->
+
+            <div class="food-section">
+
+                <h3>🍫 Other</h3>
+
+                <div
+                    id="otherContainer"
+                    class="food-grid">
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         ADD FOOD MODAL
+    ========================== -->
+
+    <div id="addFoodModal" class="modal hidden">
+
+        <div class="modal-box">
+
+            <button class="close-modal"
+                    id="closeAddModal">
+                ×
+            </button>
+
+            <h2>➕ Add Food</h2>
+
+            <p>Add a new item to your refrigerator.</p>
+
+            <form id="foodForm">
+
+                <label>Food Name</label>
+
+                <input
+                    type="text"
+                    id="foodName"
+                    placeholder="Example: Milk"
+                    required
+                >
+
+
+                <label>Category</label>
+
+                <select id="foodCategory" required>
+
+                    <option value="">
+                        Select Category
+                    </option>
+
+                    <option value="Dairy & Drinks">
+                        Dairy & Drinks
+                    </option>
+
+                    <option value="Fruits & Vegetables">
+                        Fruits & Vegetables
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+
+                <label>Bought Date</label>
+
+                <input
+                    type="date"
+                    id="boughtDate"
+                    required
+                >
+
+
+                <label>Expiry Date</label>
+
+                <input
+                    type="date"
+                    id="expiryDate"
+                    required
+                >
+
+
+                <button type="submit"
+                        class="submit-btn">
+                    Add to Fridge
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         FOOD DETAILS MODAL
+    ========================== -->
+
+    <div id="detailsModal" class="modal hidden">
+
+        <div class="modal-box details-box">
+
+            <button class="close-modal"
+                    id="closeDetailsModal">
+                ×
+            </button>
+
+            <div id="foodDetails"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         PRIORITY QUEUE MODAL
+    ========================== -->
+
+    <div id="priorityModal" class="modal hidden">
+
+        <div class="modal-box priority-box">
+
+            <button class="close-modal"
+                    id="closePriorityModal">
+                ×
+            </button>
+
+            <h2>⚡ Priority Queue</h2>
+
+            <p>
+                Food items arranged from earliest expiry
+                to latest expiry.
+            </p>
+
+            <div id="priorityList"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- JavaScript -->
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

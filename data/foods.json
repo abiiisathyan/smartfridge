@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Milk",
+    "category": "Dairy & Drinks",
+    "bought_date": "2026-09-20",
+    "expiry_date": "2026-09-27"
+  },
+  {
+    "id": 2,
+    "name": "Cheese",
+    "category": "Dairy & Drinks",
+    "bought_date": "2026-09-21",
+    "expiry_date": "2026-09-30"
+  },
+  {
+    "id": 3,
+    "name": "Apple",
+    "category": "Fruits & Vegetables",
+    "bought_date": "2026-09-22",
+    "expiry_date": "2026-10-02"
+  },
+  {
+    "id": 4,
+    "name": "Broccoli",
+    "category": "Fruits & Vegetables",
+    "bought_date": "2026-09-23",
+    "expiry_date": "2026-09-28"
+  },
+  {
+    "id": 5,
+    "name": "Chocolate",
+    "category": "Other",
+    "bought_date": "2026-09-20",
+    "expiry_date": "2026-10-15"
+  }
+]
